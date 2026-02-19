@@ -1,0 +1,5 @@
+com\college\management\CollegeManagementSystemApplication.class
+com\college\management\controller\HomeController.class
+com\college\management\config\DataInitializer.class
+com\college\management\repository\StudentRepository.class
+com\college\management\model\Student.class

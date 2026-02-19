@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-shape" style="top: -100px; left: -100px;"></div>
+    <div class="bg-shape" style="bottom: -100px; right: -100px; background: var(--glow-purple);"></div>
+
+    <div class="sidebar">
+        <h2 style="color: var(--accent-blue);">🚀 Startup Pro</h2>
+        <a th:href="@{/}" class="nav-item">Dashboard</a>
+        <a th:href="@{/students}" class="nav-item">Student Ledger</a>
+        <a th:href="@{/add-student}" class="nav-item active">New Enrollment</a>
+    </div>
+
+    <div class="main-content">
+        <div class="saas-card-3d">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Enroll <span style="color: var(--accent-blue);">Student</span></h1>
+            <p style="color: var(--text-slate); margin-bottom: 40px;">Registration management portal</p>
+            
+            <form th:action="@{/save-student}" th:object="${student}" method="POST">
+                <input type="hidden" th:field="*{id}">
+                
+                <div style="margin-bottom: 30px;">
+                    <label style="color: #fff; font-weight: bold; opacity: 0.8;">FULL NAME</label>
+                    <input type="text" th:field="*{name}" class="input-field" placeholder="John Doe" required>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <label style="color: #fff; font-weight: bold; opacity: 0.8;">DEPARTMENT</label>
+                    <select th:field="*{department}" class="input-field" required>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Mechanical">Mechanical Engineering</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <label style="color: #fff; font-weight: bold; opacity: 0.8;">EMAIL ADDRESS</label>
+                    <input type="email" th:field="*{email}" class="input-field" placeholder="john@college.edu" required>
+                </div>
+
+                <button type="submit" class="btn-primary-3d">Confirm Enrollment</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Records - CMS</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background-icons">
+        <svg class="icon-svg" style="left: 10%; width: 80px;" viewBox="0 0 24 24"><path d="M12 3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z"/></svg>
+        <svg class="icon-svg" style="left: 80%; animation-duration: 35s; width: 60px;" viewBox="0 0 24 24"><path d="M18,22A2,2 0 0,0 20,20V4C20,2.89 19.1,2 18,2H12V4H18V20H12V22H18M6,2H12V4H6V20H12V22H6A2,2 0 0,1 4,20V4C4,2.89 4.9,2 6,2Z"/></svg>
+    </div>
+
+    <div class="sidebar">
+        <h2 style="font-weight: 300; color: var(--calm-blue); font-size: 1.2rem; margin-bottom: 40px;">College System</h2>
+        <nav>
+            <a th:href="@{/}" class="nav-item">🏠 Dashboard</a>
+            <a th:href="@{/students}" class="nav-item active">📚 Student Ledger</a>
+            <a th:href="@{/add-student}" class="nav-item">✍️ Register Student</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <div>
+                <h1 style="font-weight: 300; margin: 0;">Student <span style="color: var(--calm-blue);">Ledger</span></h1>
+                <p style="color: var(--accent-soft); margin: 5px 0 0 0;">Academic record management</p>
+            </div>
+
+            <form th:action="@{/students}" method="get" class="search-container">
+                <input type="text" name="keyword" class="search-input" placeholder="Find by name...">
+                <button type="submit" class="search-btn">SEARCH</button>
+            </form>
+        </header>
+
+        <div class="content-card">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                <a th:href="@{/students(dept='Computer Science')}" style="color: var(--calm-blue); text-decoration: none; font-size: 0.85rem;">⚡ Filter Computer Science</a>
+                <span style="color: var(--accent-soft); font-size: 0.85rem;">Records Overview</span>
+            </div>
+
+            <table class="gentle-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Name</th>
+                        <th style="width: 25%;">Department</th>
+                        <th style="width: 30%;">Email</th>
+                        <th style="width: 15%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.name}" style="font-weight: 600;"></td>
+                        <td>
+                            <span style="color: var(--calm-blue); font-size: 0.9rem;" th:text="${student.department}"></span>
+                        </td>
+                        <td th:text="${student.email}" style="color: var(--accent-soft); font-size: 0.9rem;"></td>
+                        <td>
+                            <a th:href="@{/edit-student/{id}(id=${student.id})}" style="color: var(--dusty-rose); text-decoration: none; font-weight: 600; margin-right: 10px;">Edit</a>
+                            <a th:href="@{/delete-student/{id}(id=${student.id})}" style="color: var(--accent-soft); text-decoration: none; font-size: 0.8rem;">Remove</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(students)}">
+                        <td colspan="4" style="text-align: center; padding: 50px; color: var(--accent-soft);">No records found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
